@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Tab Component</title>
+  <style>
+    .tab {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="tabs"></div>
+
+  <script>
+    // Define the Tabs component
+    function Tabs({ tabs }) {
+      const tabList = document.createElement('ul');
+      const tabContent = document.createElement('div');
+      const tabContainer = document.getElementById('tabs');
+
+      tabContainer.appendChild(tabList);
+      tabContainer.appendChild(tabContent);
+
+      // Function to create a tab element
+      function createTab(tabData, index) {
+        const tab = document.createElement('li');
+        tab.textContent = tabData.title;
+
+        tab.addEventListener('click', () => {
+          showTabContent(index);
+        });
+
+        return tab;
+      }
+
+      // Function to create the tab content
+      function createTabContent(tabData) {
+        const content = document.createElement('div');
+        content.textContent = tabData.content;
+        return content;
+      }
+
+      // Function to display the tab content
+      function showTabContent(index) {
+        tabContent.innerHTML = '';
+
+        const content = createTabContent(tabs[index]);
+        tabContent.appendChild(content);
+      }
+
+      // Render the tabs
+      function renderTabs() {
+        tabs.forEach((tabData, index) => {
+          const tab = createTab(tabData, index);
+          tabList.appendChild(tab);
+        });
+      }
+
+      // Initialize the component
+      renderTabs();
+    }
+
+    // Define the data for tabs
+    const tabsData = [
+      { title: 'Tab 1', content: 'Content of Tab 1' },
+      { title: 'Tab 2', content: 'Content of Tab 2' },
+      { title: 'Tab 3', content: 'Content of Tab 3' }
+    ];
+
+    // Create an instance of the Tabs component
+    const tabsComponent = new Tabs({ tabs: tabsData });
+  </script>
+</body>
+</html>
